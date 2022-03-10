@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const ethers = require('ethers')
-const config = require('./config.json')
+// const config = require('./config.json')
 const ZKSTAKE = require('./zkStake.json')
 const client = new Discord.Client({
   intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'DIRECT_MESSAGES'],
