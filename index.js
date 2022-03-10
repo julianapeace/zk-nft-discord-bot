@@ -10,7 +10,8 @@ const prefix = '!'
 
 const provider = ethers.getDefaultProvider('kovan')
 const stakecontract = new ethers.Contract(
-  config.Contract_Address,
+  // config.Contract_Address,
+  process.env.Contract_Address,
   ZKSTAKE.abi,
   provider,
 )
@@ -121,4 +122,4 @@ client.on('messageCreate', async function (message) {
 
 })
 
-client.login(config.BOT_TOKEN)
+client.login(process.env.BOT_TOKEN)
