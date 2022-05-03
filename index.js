@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Discord = require('discord.js')
 const ethers = require('ethers')
 // const config = require('./config.json')
@@ -16,9 +17,13 @@ const stakecontract = new ethers.Contract(
   provider,
 )
 
-async function main(args, message, guild) {
-  let valid = await checkWhitelist(args);
-  console.log(`valid: ${valid}`)
+async function main(args, message, guild, guildId) {
+  let { valid, entityId } = await checkWhitelist(args);
+
+  fs.appendFile('store.txt', entityId + ',' + guildId, 'utf8', () => {
+    console.log('wrote to file')
+  });
+
   if (valid && typeof valid === "boolean") {
     message.author.send('GM you are verified')
 
@@ -47,7 +52,10 @@ async function checkWhitelist(message) {
       params.entityId,
       params.proof,
     )
-    return r
+    return {
+      valid: r,
+      entityId: params.entityId
+    }
   } catch (error) {
     console.log(`Error: ${error}`);
     return false
@@ -78,6 +86,8 @@ client.on('messageCreate', async function (message) {
     message.reply(`The sum of all the arguments you provided is ${sum}!`)
   } else if (command === 'dm') {
     // let messageContent = message.content.replace("!dm", "")
+    console.log(`Message ${message}`);
+    const guildId = message.guild.id
     const guild = client.guilds.cache.get(message.guild.id); // get the server's id, needed to add role
 
     const filter = collected => collected.author.id === message.author.id;
@@ -90,7 +100,7 @@ client.on('messageCreate', async function (message) {
       const command = args.shift().toLowerCase()
 
       if (command === 'verify') {
-        main(args[0], message, guild)
+        main(args[0], message, guild, guildId)
       }
     });
 
@@ -122,4 +132,5 @@ client.on('messageCreate', async function (message) {
 
 })
 
+// client.login(config.BOT_TOKEN)
 client.login(process.env.BOT_TOKEN)

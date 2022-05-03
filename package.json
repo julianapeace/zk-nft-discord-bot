@@ -19,7 +19,8 @@
   "homepage": "https://github.com/johhonn/semaphorebot#readme",
   "dependencies": {
     "discord.js": "^13.6.0",
-    "ethers": "^5.5.4"
+    "ethers": "^5.5.4",
+    "fs": "^0.0.1-security"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
