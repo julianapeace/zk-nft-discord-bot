@@ -1,4 +1,4 @@
-# semaphorebot
+# Discord Bot for ZK-NFT
 Discord bot for verifying semaphore zk inclusion proofs
 
 Duck Notes
