@@ -60,7 +60,6 @@ async function checkWhitelist(message) {
     console.log(`Error: ${error}`);
     return false
   }
-
 }
 
 
